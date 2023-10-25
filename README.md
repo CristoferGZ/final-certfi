@@ -1,0 +1,6 @@
+# certificacion_2
+caso de estuidio :Crear una aplicación que permita al usuario registrado agregar elementos a su lista de deseos y también puede agregar elementos de otras listas. Todos los usuarios pueden hacer lo mismo.
+
+Características Requeridas:
+
+Iniciar sesión y registro con validaciones. La fecha de la lista (Date Hired) debe ser hoy o en el pasado. Los errores de validación deben aparecen en la página. Mostrar la lista de deseos del usuario registrado (tabla superior) que incluye los elementos que el usuario ha creado y los que ha marcado para agregar a su propia lista. La capacidad de mover elementos de "la lista de deseos de otros usuarios" a su propia lista. Agregar nuevos elementos. Aplicar validaciones. Página individual por elemento que muestra la lista de usuarios que han agregado este elemento a su propia lista de deseos. Remover elementos de la lista de deseos. La persona que agregó el producto tiene la opción de eliminar el producto. Debe poder implementar su trabajo en Amazon EC2 y proporcionar la dirección IP o el nombre del dominio donde su aplicación ha sido desplegada. El despliegue en Heroku no cuenta.

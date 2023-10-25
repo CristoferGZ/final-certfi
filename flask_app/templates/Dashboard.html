@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotable Quotes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+        <div class="collapse navbar-collapse p-2" >
+        
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>  
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'quote_error' %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2>Hello, {{ session['usuario_nombre'] }}</h2> <!-- Muestra el nombre del usuario -->
+    
+        {% if usuario_id_sesion %}
+            
+        <h3>Your wish Lists:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Added by</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if elementos_favoritos %}
+                    {% for elemento in elementos_favoritos %}
+                    <tr>
+                        <td><a href="/whish_item/{{ elemento.id }}">{{ elemento.nombre }}</a></td>
+                        <td>{{ elemento.creador_nombre }}</td>
+                        <td>{{ elemento.fecha_creacion }}</td>
+                        <td>
+                            {% if elemento.usuario_id == usuario_id_sesion %}
+                                <form action="/eliminar_elemento/{{ elemento.id }}" method="post">
+                                    <input type="submit" value="Eliminar Elemento" class="btn btn-danger">
+                                </form>
+                            {% else %}
+                                <form action="/eliminar_favorito/{{ elemento.id }}" method="post">
+                                    <input type="submit" value="Eliminar de Favoritos" class="btn btn-warning">
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <h3>Other Users' Wish List:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Added by</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if elementos_no_favoritos %}
+                    {% for elements in elementos_no_favoritos %}
+                    <tr>
+                        <td><a href="/whish_item/{{ elemento.id }}">{{ elemento.nombre }}</a></td>
+                        <td>{{ elemento.creador_nombre }}</td>
+                        <td>{{ elemento.fecha_creacion }}</td>
+                        <td>
+                            <form action="/agregar_favorito/{{ elemento.id }}" method="post">
+                                <input type="submit" value="Add to my Wishlist" class="btn btn-success">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <div class = "d-flex justify-content-end">
+            <a href="/agregar_elemento" class="btn btn-info">Add Item</a>
+        </div>
+        {% endif %}
+        
+    </div>
+    <br>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas del Usuario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+        <div class="collapse navbar-collapse p-2">
+            <a href="{{ url_for('dashboard') }}" class="mr-3">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>{{ elemento.nombre }}</h1>
+        <!-- Otros detalles del elemento -->
+    
+        <h2>Users who added this product/item under their wish list:</h2>
+        <ul class="list-unstyled mb-0">
+            {% for nombre in nombres_favoritos %}
+                <li>{{ nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Añadir elemento</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+        <div class="collapse navbar-collapse p-2">
+            <a href="{{ url_for('dashboard') }}" class="mr-3">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'quote_error' %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container mt-5">
+        <h2>Añadir un nuevo elemento:</h2>
+        <form action="/agregar_elemento" method="post">
+            <div class="form-group">
+                <label for="nombre">Nombre del elemento:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" required>
+            </div>
+            <input type="submit" value="Añadir elemento" class="btn btn-primary">
+        </form>
+    </div>
+
+    <br>
+</body>
+
+</html>
